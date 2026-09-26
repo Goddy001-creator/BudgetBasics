@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  --teal: #0F766E;
-  --teal-dark: #0B5C55;
-  --teal-light: #E6F4F2;
-  --dark: #102A2A;
+  --teal: #6D0808;
+  --teal-dark: #2D0000;
+  --teal-light: #F7F7F2;
+  --dark: #6D0808;
   --cream: #F7F7F2;
-  --gold: #F4B942;
+  --gold: #F7F7F2;
   --gold-dark: #D89A1E;
   --need: #0F766E;
   --want: #F4B942;
