@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import Nav from './components/Nav';
+import Splash from './components/Splash';
 import Footer from './components/Footer';
-import { TipsTicker, StatsBar, BackToTop } from './components/Widgets';
+import { TipsTicker, BackToTop } from './components/Widgets';
 import Home from './pages/Home';
 import BudgetingBasics from './pages/BudgetingBasics';
 import NeedsWants from './pages/NeedsWants';
@@ -49,6 +50,7 @@ const pageComponents = {
 
 export default function App() {
   const [page, setPage] = useState('home');
+  const [showSplash, setShowSplash] = useState(true);
   const [theme, setTheme] = useState(() => {
     try { return localStorage.getItem('bb-theme') || 'light'; } catch { return 'light'; }
   });
@@ -77,10 +79,10 @@ export default function App() {
 
   return (
     <div>
+      {showSplash && <Splash onFinish={() => setShowSplash(false)} />}
       <a href="#main" className="sr-only">Skip to main content</a>
       <Nav page={page} setPage={goto} theme={theme} toggleTheme={() => setTheme(t => t === 'dark' ? 'light' : 'dark')} onSearch={handleSearch} />
       <TipsTicker />
-      <StatsBar />
       <main id="main">
         {searchMiss ? (
           <section className="section">

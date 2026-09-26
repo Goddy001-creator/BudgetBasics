@@ -113,3 +113,5 @@ label { font-weight: 600; font-size: 0.85rem; display: block; margin-bottom: 6px
 
 .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; }
 @media (max-width: 760px) { .hero-grid { grid-template-columns: 1fr; } }
+
+@keyframes splash-logo-in { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
