@@ -12,7 +12,7 @@ export default function BudgetingBasics() {
         <div className="section-head">
           <span className="eyebrow">Module 1</span>
           <h2>Budgeting Basics</h2>
-          <p>The building blocks of any personal budget — understand these six terms first.</p>
+          <p>The building blocks of any personal budget; understand these six terms first.</p>
         </div>
 
         <div className="grid grid-3" style={{ marginBottom: 48 }}>

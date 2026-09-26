@@ -1,4 +1,4 @@
-import { ArrowRight, PiggyBank, Target, ShieldCheck, MessageCircle } from 'lucide-react';
+import { ArrowRight, Wallet, PiggyBank, Target, ShieldCheck, MessageCircle } from 'lucide-react';
 
 const features = [
   { icon: PiggyBank, title: 'Budgeting Basics', desc: 'Learn income, expenses, needs, wants, and savings through simple guides.', page: 'basics' },
@@ -10,7 +10,27 @@ const features = [
 export default function Home({ setPage }) {
   return (
     <>
-      <section className="section" style={{ paddingTop: 72, paddingBottom: 56 }}>
+      <section className="section" style={{ paddingTop: 40, paddingBottom: 56 }}>
+        <div className="container" style={{ marginBottom: 32 }}>
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap',
+            background: 'var(--teal-light)', border: '1px solid var(--border)',
+            borderRadius: 14, padding: '16px 20px',
+          }}>
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              width: 44, height: 44, borderRadius: 12, background: 'var(--teal)', color: 'white', flexShrink: 0,
+            }}><Wallet size={22} /></span>
+            <div>
+              <p style={{ fontWeight: 800, fontFamily: 'Manrope', fontSize: '1.05rem', color: 'var(--text)', margin: 0 }}>
+                Welcome to Budget<span style={{ color: 'var(--gold-dark)' }}>Basics</span>
+              </p>
+              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: '2px 0 0' }}>
+                Smart budgeting, made simple for students.
+              </p>
+            </div>
+          </div>
+        </div>
         <div className="container hero-grid">
           <div>
             <span className="tag tag-want" style={{ marginBottom: 16, display: 'inline-block' }}>NextGen BudgetBee · Web Innovation Unleashed</span>

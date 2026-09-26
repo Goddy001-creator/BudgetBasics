@@ -47,8 +47,8 @@ export default function NeedsWants() {
           <div>
             <h3 style={{ fontSize: '1rem' }}>The 48-Hour Rule</h3>
             <p style={{ fontSize: '0.9rem' }}>
-              Before buying anything that isn't a need, wait 48 hours. If you still want it after the wait — and it
-              fits your budget — it's a more considered purchase, not an impulse one.
+              Before buying anything that isn't a need, wait 48 hours. If you still want it after the wait and it
+              fits your budget, it's a more considered purchase, not an impulse one.
             </p>
           </div>
         </div>
