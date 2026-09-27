@@ -17,7 +17,7 @@ export default function BudgetingBasics() {
 
         <div className="grid grid-3" style={{ marginBottom: 48 }}>
           {budgetingConcepts.map(c => (
-            <div key={c.id} className="card">
+            <div key={c.id} className="card card-hover">
               <h3 style={{ fontSize: '1rem' }}>{c.title}</h3>
               <p style={{ fontSize: '0.9rem' }}>{c.desc}</p>
             </div>

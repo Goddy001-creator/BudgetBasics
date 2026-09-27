@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Wallet, Menu, X, Moon, Sun, Search, ChevronDown } from 'lucide-react';
+import { Wallet, Menu, X, Moon, Sun, Search, ChevronDown, Map } from 'lucide-react';
 import { navLinks, navGroups } from '../data/content';
 
 export default function Nav({ page, setPage, theme, toggleTheme, onSearch }) {
@@ -102,6 +102,10 @@ export default function Nav({ page, setPage, theme, toggleTheme, onSearch }) {
                 placeholder="Search topics..." style={{ paddingLeft: 32, width: 160, fontSize: '0.85rem', padding: '8px 10px 8px 32px' }} />
             </div>
           </form>
+          <button onClick={() => go('sitemap')} aria-label="Sitemap" title="Sitemap" style={{
+            background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: 10, width: 38, height: 38,
+            display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text)', flexShrink: 0,
+          }}><Map size={17} /></button>
           <button onClick={toggleTheme} aria-label="Toggle dark mode" style={{
             background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: 10, width: 38, height: 38,
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text)', flexShrink: 0,

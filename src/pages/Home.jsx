@@ -14,7 +14,7 @@ export default function Home({ setPage }) {
         <div className="container" style={{ marginBottom: 32 }}>
           <div style={{
             display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap',
-            background: 'var(--teal-light)', border: '1px solid var(--border)',
+            background: 'var(--accent-teal-bg)', border: '1px solid var(--border)',
             borderRadius: 14, padding: '16px 20px',
           }}>
             <span style={{
