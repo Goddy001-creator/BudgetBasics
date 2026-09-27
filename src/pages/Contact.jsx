@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Mail, Phone, Share2, Globe, CheckCircle2 } from 'lucide-react';
 import { contactInfo } from '../data/content';
 
+
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [errors, setErrors] = useState({});
