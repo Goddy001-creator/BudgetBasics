@@ -74,6 +74,8 @@ img, svg { max-width: 100%; }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; box-shadow: var(--shadow); }
 .card-link { transition: transform 0.18s ease, box-shadow 0.18s ease; cursor: pointer; }
 .card-link:hover, .card-link:focus-visible { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+.card-hover { transition: transform 0.18s ease, box-shadow 0.18s ease; }
+.card-hover:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
 
 .grid { display: grid; gap: 20px; }
 .grid-2 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
