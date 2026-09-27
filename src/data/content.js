@@ -52,6 +52,42 @@ export const navGroups = [
   },
 ];
 
+export const siteMapGroups = [
+  {
+    id: 'learning',
+    label: 'Learning Modules',
+    accent: 'teal',
+    items: [
+      { id: 'basics', label: 'Budgeting Basics' },
+      { id: 'needs-wants', label: 'Needs vs Wants' },
+      { id: 'rule', label: '50-30-20 Rule' },
+      { id: 'savings', label: 'Savings Goals' },
+      { id: 'planner', label: 'Expense Planner' },
+      { id: 'mistakes', label: 'Money Mistakes' },
+      { id: 'infographics', label: 'Infographics' },
+    ],
+  },
+  {
+    id: 'chatbot',
+    label: 'AI Chatbot',
+    accent: 'gold',
+    items: [
+      { id: 'chatbot', label: 'AI Chatbot', note: 'Quick answers to common budgeting questions' },
+    ],
+  },
+  {
+    id: 'site',
+    label: 'Site & Feedback',
+    accent: 'neutral',
+    items: [
+      { id: 'feedback', label: 'Feedback' },
+      { id: 'contact', label: 'Contact Us' },
+      { id: 'about', label: 'About' },
+      { id: 'sitemap', label: 'Sitemap' },
+    ],
+  },
+];
+
 export const quickTips = [
   "Track every expense for a week; small leaks sink big budgets.",
   "Pay yourself first: move savings out before you can spend it.",
