@@ -19,7 +19,9 @@ export default function Home({ setPage }) {
           }}>
             <span style={{
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-              width: 44, height: 44, borderRadius: 12, background: 'var(--teal)', color: 'white', flexShrink: 0,
+              width: 44, height: 44, borderRadius: 12,
+              background: 'linear-gradient(135deg, #6C4DE6, #8B72F2)', color: '#ffffff', flexShrink: 0,
+              boxShadow: '0 8px 20px rgba(108, 77, 230, 0.35)',
             }}><Wallet size={22} /></span>
             <div>
               <p style={{ fontWeight: 800, fontFamily: 'Manrope', fontSize: '1.05rem', color: 'var(--text)', margin: 0 }}>
@@ -49,13 +51,17 @@ export default function Home({ setPage }) {
           <div className="card" style={{ background: 'var(--teal)', color: 'white', border: 'none' }}>
             <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '0.85rem', marginBottom: 4 }}>Sample student split</p>
             <h3 style={{ color: 'white', marginBottom: 16 }}>₦150,000 monthly income</h3>
-            {[['Needs', 50, 'var(--cream)'], ['Wants', 30, 'var(--gold)'], ['Savings', 20, '#8FE3C7']].map(([label, pct, color]) => (
+            {[
+              ['Needs', 50, '#ffffff', '#ffffff'],
+              ['Wants', 30, '#E85AC8', '#ffffff'],
+              ['Savings', 20, '#8FE3C7', '#1F1A38']
+            ].map(([label, pct, color, textColor]) => (
               <div key={label} style={{ marginBottom: 12 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', marginBottom: 4 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', marginBottom: 4, color: '#ffffff' }}>
                   <span>{label}</span><span>{pct}%</span>
                 </div>
                 <div style={{ height: 10, borderRadius: 999, background: 'rgba(255,255,255,0.2)' }}>
-                  <div style={{ width: `${pct}%`, height: '100%', borderRadius: 999, background: color }} />
+                  <div style={{ width: `${pct}%`, height: '100%', borderRadius: 999, background: color, color: textColor }} />
                 </div>
               </div>
             ))}

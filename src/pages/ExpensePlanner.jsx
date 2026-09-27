@@ -1,8 +1,14 @@
 import { useState } from 'react';
-import { Plus, Trash2, Pencil, Check, AlertCircle } from 'lucide-react';
+import { Plus, Trash2, Pencil, Check, AlertCircle, Download } from 'lucide-react';
 import { expenseCategories } from '../data/content';
 
 const emptyForm = { date: '', category: expenseCategories[0], description: '', amount: '' };
+
+const formatCurrency = (value) => new Intl.NumberFormat('en-NG', {
+  style: 'currency',
+  currency: 'NGN',
+  maximumFractionDigits: 0,
+}).format(Number(value) || 0);
 
 export default function ExpensePlanner() {
   const [entries, setEntries] = useState([]);
@@ -10,6 +16,8 @@ export default function ExpensePlanner() {
   const [editingId, setEditingId] = useState(null);
   const [balance, setBalance] = useState('');
   const [error, setError] = useState('');
+  const [downloadMessage, setDownloadMessage] = useState('');
+  const [downloadState, setDownloadState] = useState('');
 
   const submit = (e) => {
     e.preventDefault();
@@ -40,6 +48,181 @@ export default function ExpensePlanner() {
   const total = entries.reduce((s, e) => s + e.amount, 0);
   const sampleBalance = parseFloat(balance);
   const remaining = !isNaN(sampleBalance) ? sampleBalance - total : null;
+
+  const downloadPlan = () => {
+    if (!entries.length) {
+      setDownloadState('error');
+      setDownloadMessage('Add at least one expense before downloading your plan.');
+      return;
+    }
+
+    const generatedAt = new Date().toLocaleString('en-NG', {
+      dateStyle: 'medium',
+      timeStyle: 'short',
+    });
+
+    const rows = entries.map((en, index) => `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${en.date || '—'}</td>
+        <td>${en.category}</td>
+        <td>${en.description}</td>
+        <td>${formatCurrency(en.amount)}</td>
+      </tr>
+    `).join('');
+
+    const startedBalance = !isNaN(sampleBalance) ? formatCurrency(sampleBalance) : 'Not provided';
+    const remainingText = remaining === null ? 'Not provided' : `${formatCurrency(remaining)}${remaining < 0 ? ' (over budget)' : ''}`;
+
+    const html = `<!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Expense Plan</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            color: #202033;
+            background: #f8f7ff;
+            margin: 0;
+            padding: 32px;
+          }
+          .container {
+            max-width: 820px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #e8e4f2;
+            border-radius: 18px;
+            box-shadow: 0 18px 40px rgba(108, 77, 230, 0.08);
+            overflow: hidden;
+          }
+          .header {
+            padding: 28px 32px 20px;
+            background: linear-gradient(135deg, #6C4DE6, #8B72F2);
+            color: #ffffff;
+          }
+          .header h1 {
+            margin: 0 0 8px;
+            font-size: 30px;
+          }
+          .header p {
+            margin: 0;
+            opacity: 0.9;
+          }
+          .content {
+            padding: 24px 32px 32px;
+          }
+          .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+          }
+          .summary-box {
+            background: #f3f0ff;
+            padding: 16px 18px;
+            border-radius: 12px;
+            border: 1px solid #e8e4f2;
+          }
+          .summary-box span {
+            display: block;
+            color: #6F6B7D;
+            font-size: 12px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+          }
+          .summary-box strong {
+            font-size: 20px;
+          }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+          }
+          th, td {
+            border-bottom: 1px solid #e8e4f2;
+            padding: 12px 10px;
+            text-align: left;
+            font-size: 14px;
+          }
+          th {
+            color: #6F6B7D;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+          }
+          .total-row {
+            margin-top: 18px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #202033;
+          }
+          .footer-note {
+            margin-top: 20px;
+            color: #6F6B7D;
+            font-size: 12px;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>Expense Plan</h1>
+            <p>Generated on ${generatedAt}</p>
+          </div>
+          <div class="content">
+            <div class="summary">
+              <div class="summary-box">
+                <span>Total expenses</span>
+                <strong>${formatCurrency(total)}</strong>
+              </div>
+              <div class="summary-box">
+                <span>Starting balance</span>
+                <strong>${startedBalance}</strong>
+              </div>
+              <div class="summary-box">
+                <span>Remaining balance</span>
+                <strong>${remainingText}</strong>
+              </div>
+            </div>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Date</th>
+                  <th>Category</th>
+                  <th>Description</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${rows || '<tr><td colspan="5">No expenses added yet.</td></tr>'}
+              </tbody>
+            </table>
+
+            <div class="total-row">Total planned expenses: ${formatCurrency(total)}</div>
+            <div class="footer-note">BudgetBasics Expense Planner — This document includes the user's actual plan information entered during the session.</div>
+          </div>
+        </div>
+      </body>
+      </html>`;
+
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `expense-plan-${new Date().toISOString().slice(0, 10)}.html`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+
+    setDownloadState('success');
+    setDownloadMessage('Expense plan download started successfully.');
+  };
 
   return (
     <section className="section">
@@ -92,7 +275,7 @@ export default function ExpensePlanner() {
                       <td>{en.date}</td>
                       <td>{en.category}</td>
                       <td>{en.description}</td>
-                      <td style={{ textAlign: 'right' }}>₦{en.amount.toLocaleString()}</td>
+                      <td style={{ textAlign: 'right' }}>{formatCurrency(en.amount)}</td>
                       <td style={{ display: 'flex', gap: 8 }}>
                         <button onClick={() => edit(en)} aria-label={`Edit ${en.description}`} style={{ background: 'none', border: 'none', color: 'var(--teal)' }}><Pencil size={15} /></button>
                         <button onClick={() => remove(en.id)} aria-label={`Remove ${en.description}`} style={{ background: 'none', border: 'none', color: 'var(--danger)' }}><Trash2 size={15} /></button>
@@ -102,7 +285,24 @@ export default function ExpensePlanner() {
                 </tbody>
               </table>
             </div>
-            <p style={{ marginTop: 12, fontSize: '0.9rem' }}>Total planned expenses: <strong style={{ color: 'var(--text)' }}>₦{total.toLocaleString()}</strong></p>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: 16, marginTop: 18 }}>
+              <p style={{ margin: 0, fontSize: '0.9rem' }}>Total planned expenses: <strong style={{ color: 'var(--text)' }}>{formatCurrency(total)}</strong></p>
+              <button type="button" className="btn btn-primary" onClick={downloadPlan}>
+                <Download size={16} /> Download Expense Plan
+              </button>
+            </div>
+
+            {downloadMessage && (
+              <p style={{
+                marginTop: 12,
+                marginBottom: 0,
+                fontSize: '0.82rem',
+                color: downloadState === 'error' ? 'var(--danger)' : 'var(--primary-dark)',
+              }}>
+                {downloadMessage}
+              </p>
+            )}
           </div>
         )}
 

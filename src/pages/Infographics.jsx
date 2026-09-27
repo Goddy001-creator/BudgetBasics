@@ -6,10 +6,10 @@ const topics = ['all', 'needs-wants', 'rule', 'cycle', 'savings'];
 function NeedsWantsSVG() {
   return (
     <svg viewBox="0 0 200 120" role="img" aria-label="Needs versus wants split, roughly 60 to 40">
-      <rect x="0" y="0" width="120" height="120" fill="var(--teal)" />
-      <rect x="120" y="0" width="80" height="120" fill="var(--gold)" />
-      <text x="60" y="65" textAnchor="middle" fill="white" fontSize="14" fontWeight="700">NEEDS</text>
-      <text x="160" y="65" textAnchor="middle" fill="var(--dark)" fontSize="14" fontWeight="700">WANTS</text>
+      <rect x="0" y="0" width="120" height="120" fill="#6C4DE6" />
+      <rect x="120" y="0" width="80" height="120" fill="#E85AC8" />
+      <text x="60" y="65" textAnchor="middle" fill="#ffffff" fontSize="14" fontWeight="700">NEEDS</text>
+      <text x="160" y="65" textAnchor="middle" fill="#1F1A38" fontSize="14" fontWeight="700">WANTS</text>
     </svg>
   );
 }
@@ -17,12 +17,12 @@ function RuleSVG() {
   return (
     <svg viewBox="0 0 200 120" role="img" aria-label="50-30-20 rule pie split">
       <circle cx="60" cy="60" r="50" fill="none" stroke="var(--border)" strokeWidth="20" />
-      <circle cx="60" cy="60" r="50" fill="none" stroke="var(--teal)" strokeWidth="20" strokeDasharray="157 314" transform="rotate(-90 60 60)" />
-      <circle cx="60" cy="60" r="50" fill="none" stroke="var(--gold)" strokeWidth="20" strokeDasharray="94 314" strokeDashoffset="-157" transform="rotate(-90 60 60)" />
-      <circle cx="60" cy="60" r="50" fill="none" stroke="var(--savings)" strokeWidth="20" strokeDasharray="63 314" strokeDashoffset="-251" transform="rotate(-90 60 60)" />
-      <text x="140" y="35" fontSize="11" fill="var(--teal)">■ Needs 50%</text>
-      <text x="140" y="60" fontSize="11" fill="var(--gold-dark)">■ Wants 30%</text>
-      <text x="140" y="85" fontSize="11" fill="var(--savings)">■ Savings 20%</text>
+      <circle cx="60" cy="60" r="50" fill="none" stroke="#6C4DE6" strokeWidth="20" strokeDasharray="157 314" transform="rotate(-90 60 60)" />
+      <circle cx="60" cy="60" r="50" fill="none" stroke="#E85AC8" strokeWidth="20" strokeDasharray="94 314" strokeDashoffset="-157" transform="rotate(-90 60 60)" />
+      <circle cx="60" cy="60" r="50" fill="none" stroke="#2FB67E" strokeWidth="20" strokeDasharray="63 314" strokeDashoffset="-251" transform="rotate(-90 60 60)" />
+      <text x="140" y="35" fontSize="11" fill="#6C4DE6" fontWeight="700">■ Needs 50%</text>
+      <text x="140" y="60" fontSize="11" fill="#E85AC8" fontWeight="700">■ Wants 30%</text>
+      <text x="140" y="85" fontSize="11" fill="#2FB67E" fontWeight="700">■ Savings 20%</text>
     </svg>
   );
 }
@@ -36,8 +36,8 @@ function CycleSVG() {
         const y = 60 + 45 * Math.sin(angle);
         return (
           <g key={s}>
-            <circle cx={x} cy={y} r="20" fill="var(--teal)" opacity={0.15 + i * 0.15} />
-            <text x={x} y={y + 4} textAnchor="middle" fontSize="8" fontWeight="700" fill="var(--teal-dark)">{s}</text>
+            <circle cx={x} cy={y} r="20" fill="#6C4DE6" opacity={0.22 + i * 0.12} />
+            <text x={x} y={y + 4} textAnchor="middle" fontSize="8" fontWeight="700" fill="#ffffff">{s}</text>
           </g>
         );
       })}
@@ -49,7 +49,7 @@ function SavingsSVG() {
   return (
     <svg viewBox="0 0 200 120" role="img" aria-label="30-day saving challenge ramp-up bar chart">
       {bars.map((h, i) => (
-        <rect key={i} x={20 + i * 36} y={110 - h * 2} width="24" height={h * 2} rx="4" fill={i % 2 === 0 ? 'var(--teal)' : 'var(--gold)'} />
+        <rect key={i} x={20 + i * 36} y={110 - h * 2} width="24" height={h * 2} rx="4" fill={i % 2 === 0 ? '#6C4DE6' : '#E85AC8'} />
       ))}
       <line x1="10" y1="110" x2="190" y2="110" stroke="var(--border)" strokeWidth="2" />
     </svg>

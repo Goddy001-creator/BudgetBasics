@@ -31,7 +31,9 @@ export default function Nav({ page, setPage, theme, toggleTheme, onSearch }) {
   return (
     <header style={{
       position: 'sticky', top: 0, zIndex: 50,
-      background: 'var(--surface)', borderBottom: '1px solid var(--border)',
+      background: theme === 'dark' ? 'var(--surface-soft)' : 'rgba(255,255,255,0.78)',
+      borderBottom: '1px solid var(--border)',
+      backdropFilter: 'blur(12px)',
     }}>
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 68, gap: 12 }}>
         <button onClick={() => go('home')} aria-label="BudgetBasics home" style={{
@@ -39,10 +41,12 @@ export default function Nav({ page, setPage, theme, toggleTheme, onSearch }) {
         }}>
           <span style={{
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-            width: 36, height: 36, borderRadius: 10, background: 'var(--teal)', color: 'white', flexShrink: 0,
+            width: 36, height: 36, borderRadius: 10,
+            background: 'linear-gradient(135deg, var(--primary), var(--primary-light))',
+            color: 'white', flexShrink: 0,
           }}><Wallet size={18} /></span>
           <span style={{ fontFamily: 'Manrope', fontWeight: 800, fontSize: '1.1rem', color: 'var(--text)', whiteSpace: 'nowrap' }}>
-            Budget<span style={{ color: 'var(--gold-dark)' }}>Basics</span>
+            Budget<span style={{ color: 'var(--primary)' }}>Basics</span>
           </span>
         </button>
 
@@ -60,9 +64,9 @@ export default function Nav({ page, setPage, theme, toggleTheme, onSearch }) {
                   className="nav-group-btn"
                   style={{
                     display: 'flex', alignItems: 'center', gap: 4,
-                    background: isOpen ? 'var(--teal-light)' : 'none', border: 'none',
+                    background: isOpen ? 'var(--teal-light)' : 'rgba(108, 77, 230, 0.02)', border: 'none',
                     padding: '8px 10px', borderRadius: 8, fontSize: '0.88rem',
-                    fontWeight: 600, color: isActive ? 'var(--teal)' : 'var(--text-muted)',
+                    fontWeight: 600, color: isActive ? 'var(--primary)' : 'var(--text-muted)',
                     whiteSpace: 'nowrap', transition: 'background 0.15s ease, color 0.15s ease',
                   }}>
                   {group.label}
@@ -77,9 +81,9 @@ export default function Nav({ page, setPage, theme, toggleTheme, onSearch }) {
                     {group.items.map(item => (
                       <button key={item.id} role="menuitem" onClick={() => go(item.id)} className="nav-menu-item" style={{
                         display: 'block', width: '100%', textAlign: 'left',
-                        background: page === item.id ? 'var(--teal-light)' : 'none',
+                        background: page === item.id ? 'var(--teal-light)' : 'transparent',
                         border: 'none', padding: '9px 10px', borderRadius: 8, fontSize: '0.88rem', fontWeight: 600,
-                        color: page === item.id ? 'var(--teal-dark)' : 'var(--text)',
+                        color: page === item.id ? 'var(--primary-dark)' : 'var(--text)',
                         transition: 'background 0.15s ease, color 0.15s ease',
                       }}>{item.label}</button>
                     ))}
